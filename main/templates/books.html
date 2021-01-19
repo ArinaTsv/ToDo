@@ -30,11 +30,57 @@
             height: auto;
             border: 1px solid #333;
         }
+        .form {
+            margin-bottom: 32px;
+        }
+        .form input {
+            margin-bottom: 12px;
+            margin-right: 12px;
+        }
     </style>
 </head>
 <body>
     <section id="books">
         <h1>Books</h1>
+        <form action="{% url 'add-book' %}" method="POST" class="form">
+            {% csrf_token %}
+            <input
+                type="text"
+                placeholder="Title"
+                name="title"
+            />
+            <input
+                type="text"
+                placeholder="SubTitle"
+                name="subtitle"
+            />
+            <input
+                type="text"
+                placeholder="description"
+                name="description"
+            />
+            <input
+                type="number"
+                placeholder="price"
+                name="price"
+            />
+            <input
+                type="text"
+                placeholder="genre"
+                name="genre"
+            />
+            <input
+                type="text"
+                placeholder="author"
+                name="author"
+            />
+            <input
+                type="number"
+                placeholder="year"
+                name="year"
+            />
+            <button type="submit">Add Book</button>
+        </form>
         <div class="books">
             {% for book in books %}
                 <div class="books__item">
