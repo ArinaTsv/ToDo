@@ -1,95 +1,92 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-    <link rel="stylesheet" href="{% static 'styles/books.css' %}" />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        #books {
-            width: 1000px;
-            margin: 0 auto;
-        }
-        .books {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .books__item {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 200px;
-            height: auto;
-            border: 1px solid #333;
-        }
-        .form {
-            margin-bottom: 32px;
-        }
-        .form input {
-            margin-bottom: 12px;
-            margin-right: 12px;
-        }
-    </style>
-</head>
-<body>
-    <section id="books">
-        <h1>Books</h1>
-        <form action="{% url 'add-book' %}" method="POST" class="form">
-            {% csrf_token %}
-            <input
-                type="text"
-                placeholder="Title"
-                name="title"
-            />
-            <input
-                type="text"
-                placeholder="SubTitle"
-                name="subtitle"
-            />
-            <input
-                type="text"
-                placeholder="description"
-                name="description"
-            />
-            <input
-                type="number"
-                placeholder="price"
-                name="price"
-            />
-            <input
-                type="text"
-                placeholder="genre"
-                name="genre"
-            />
-            <input
-                type="text"
-                placeholder="author"
-                name="author"
-            />
-            <input
-                type="number"
-                placeholder="year"
-                name="year"
-            />
-            <button type="submit">Add Book</button>
-        </form>
-        <div class="books">
-            {% for book in books %}
-                <div class="books__item">
-                    <h3>{{ book.title }}</h3>
-                    <h5>{{ book.subtitle }}</h5>
-                    <p>{{ book.year }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Books</title>
+		<link rel="stylesheet" href="{% static 'styles/books.css' %}" />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			#books {
+				width: 1000px;
+				margin: 0 auto;
+			}
+			.books {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+			.books__item {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 200px;
+				height: auto;
+				border: 1px solid #333;
+				margin-bottom: 24px;
+				border-radius: 8px;
+				background-color: green;
+				color: #fff;
+			}
+			.form {
+				margin-bottom: 32px;
+			}
+			.form input {
+				margin-bottom: 12px;
+				margin-right: 12px;
+			}
+			.book_item_footer img {
+				width: 25px;
+				height: 25px;
+				margin: 0px 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="books">
+			<h1>Books</h1>
+			<form action="{% url 'add-book' %}" method="POST" class="form">
+				{% csrf_token %}
+				<input type="text" placeholder="Title" name="title" />
+				<input type="text" placeholder="SubTitle" name="subtitle" />
+				<input type="text" placeholder="description" name="description" />
+				<input type="number" placeholder="price" name="price" />
+				<input type="text" placeholder="genre" name="genre" />
+				<input type="text" placeholder="author" name="author" />
+				<input type="number" placeholder="year" name="year" />
+				<button type="submit">Add Book</button>
+			</form>
+			<div class="books">
+				{% for book in books %}
+				<div class="books__item">
+					<h3>{{ book.title }}</h3>
+					<h5>{{ book.subtitle }}</h5>
+					<p>{{ book.year }}</p>
+					<div class="book_item_footer">
+                        <a href="{% url 'delete-book' book.id %}"> 
+                            <img src="{% static './icons/bin.png' %}"
+                        </a>
+						{% if not book.is_favorite %}
+						<a href="{% url 'mark-book' book.id %}">
+							<img src="{% static './icons/star.png' %}" />
+						</a>
+						{% else %}
+						<a href="{% url 'unmark-book' book.id %}">
+							<img src="{% static './icons/star_yellow.png' %}" />
+						</a>
+						{% endif %}
+
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</section>
+	</body>
 </html>
