@@ -65,26 +65,27 @@
 			</form>
 			<div class="books">
 				{% for book in books %}
-				<div class="books__item">
-					<h3>{{ book.title }}</h3>
-					<h5>{{ book.subtitle }}</h5>
-					<p>{{ book.year }}</p>
-					<div class="book_item_footer">
-                        <a href="{% url 'delete-book' book.id %}"> 
-                            <img src="{% static './icons/bin.png' %}"
-                        </a>
-						{% if not book.is_favorite %}
-						<a href="{% url 'mark-book' book.id %}">
-							<img src="{% static './icons/star.png' %}" />
-						</a>
-						{% else %}
-						<a href="{% url 'unmark-book' book.id %}">
-							<img src="{% static './icons/star_yellow.png' %}" />
-						</a>
-						{% endif %}
-
+				<a href="{% url 'book' book.id %}">
+					<div class="books__item">
+						<h3>{{ book.title }}</h3>
+						<h5>{{ book.subtitle }}</h5>
+						<p>{{ book.year }}</p>
+						<div class="book_item_footer">
+							<a href="{% url 'delete-book' book.id %}"> 
+								<img src="{% static './icons/bin.png' %}"
+							</a>
+							{% if not book.is_favorite %}
+							<a href="{% url 'mark-book' book.id %}">
+								<img src="{% static './icons/star.png' %}" />
+							</a>
+							{% else %}
+							<a href="{% url 'unmark-book' book.id %}">
+								<img src="{% static './icons/star_yellow.png' %}" />
+							</a>
+							{% endif %}
+						</div>
 					</div>
-				</div>
+				</a>
 				{% endfor %}
 			</div>
 		</section>
