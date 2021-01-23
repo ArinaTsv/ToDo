@@ -34,5 +34,6 @@ urlpatterns = [
     path("unmark-book/<id>", unmark_book, name="unmark-book"),
     path("delete-book/<id>/", delete_book, name="delete-book"),
     path("book/<id>/", book_detail, name="book"),
+    path("close-todo/<id>/", close_todo, name="close-todo"),
 ]   +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
     +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
